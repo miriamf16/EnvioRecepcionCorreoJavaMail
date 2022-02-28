@@ -14,9 +14,7 @@ import javax.mail.internet.MimeMessage;
 
 public class Correo {
 
-	// final static String correoAutenticacion = "cruz.miriam@uabc.edu.mx"; //
-	// Ingresa correo
-	// final static String password = "justinbieber1519"; // contraseña de tu correo
+	
 	// gmail
 	static Properties props = new Properties();
 	private static Session session;
@@ -31,9 +29,9 @@ public class Correo {
 
 		/**** 1: CONFIGURACION DE PROPIEDADES DEL server SMTP de gmail *****/
 
-		props.put("mail.smtp.auth", "true"); // Requiere autenticación
+		props.put("mail.smtp.auth", "true"); // Requiere autenticaciï¿½n
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com"); // Dirección del servidor SMTP de Gmail
+		props.put("mail.smtp.host", "smtp.gmail.com"); // Direcciï¿½n del servidor SMTP de Gmail
 		props.put("mail.smtp.port", "587"); // Puerto SMTP de Gmail (TLS): 587
 
 		/**** 2:CREACION DE SESION Y LLAMADO DE METODO DE AUTENTIFICACION ****/
@@ -77,7 +75,7 @@ public class Correo {
 		}
 		try {
 
-			// ENVIO DE CORREO POR EL MÉTODO SEND
+			// ENVIO DE CORREO POR EL Mï¿½TODO SEND
 			// DE LA CLASE TRANSPORT
 			// DE LA API JavaMail
 
