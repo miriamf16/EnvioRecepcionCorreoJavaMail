@@ -12,24 +12,37 @@ public class Main {
 
 	public static String getInformation(String mensaje) {
 		Scanner teclado = new Scanner(System.in);
-
-		System.out.println(mensaje + ":");
-
-		return teclado.next().toString();
-
+		String cadena;
+		
+		System.out.print(mensaje + ": ");
+		cadena = teclado.nextLine();
+		
+		return cadena;
+	}
+	
+	public static void loginAcc() {
+		correo = getInformation("Correo electronico");
+		password = getInformation("contraseña");
+	}
+	
+	public static void getData() {
+		corrDes = getInformation("correo destino");
+		asunto = getInformation("asunto");
+		remitente = getInformation("remitente");
 	}
 
 	public static void main(String[] args) {
 
-		correo = "cruz.miriam@uabc.edu.mx";
-		password = "password";
-		remitente = "Miriam F. Cruz Sanchez";
+		//correo = "a1253534@uabc.edu.mx";
+		//password = "taylorswift1848* (te la creiste)";
+		//remitente = "yo";
+		
 		// INICIO DE SESION
+		loginAcc();
 		Correo.createSession(correo, password);
-
+		
 		// CREACION DE MENSAJE
-		corrDes = "cruz.miriam@uabc.edu.mx";// getInformation("Ingrese correo destino"); //
-		asunto = "Hola";// getInformation("Cual sera el asunto de su correo");
+		getData();
 		Correo.createMail(corrDes, asunto, remitente);
 
 	}
