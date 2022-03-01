@@ -4,10 +4,13 @@ import java.util.Properties;
 
 import javax.activation.CommandMap;
 import javax.activation.MailcapCommandMap;
+import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.NoSuchProviderException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
+import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
@@ -29,9 +32,9 @@ public class Correo {
 
 		/**** 1: CONFIGURACION DE PROPIEDADES DEL server SMTP de gmail *****/
 
-		props.put("mail.smtp.auth", "true"); // Requiere autenticaci�n
+		props.put("mail.smtp.auth", "true"); // Requiere autenticaciï¿½n
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com"); // Direcci�n del servidor SMTP de Gmail
+		props.put("mail.smtp.host", "smtp.gmail.com"); // Direcciï¿½n del servidor SMTP de Gmail
 		props.put("mail.smtp.port", "587"); // Puerto SMTP de Gmail (TLS): 587
 
 		/**** 2:CREACION DE SESION Y LLAMADO DE METODO DE AUTENTIFICACION ****/
@@ -75,7 +78,7 @@ public class Correo {
 		}
 		try {
 
-			// ENVIO DE CORREO POR EL M�TODO SEND
+			// ENVIO DE CORREO POR EL Mï¿½TODO SEND
 			// DE LA CLASE TRANSPORT
 			// DE LA API JavaMail
 
@@ -87,6 +90,42 @@ public class Correo {
 			e.printStackTrace();
 		}
 
+	}
+	
+	
+	public static void receiveEmail(String host, String protocol, String user, String password) {
+		try {
+			//crea el objeto store y se conecta con el servidor
+			Store store = session.getStore(protocol);
+
+		    store.connect(host, user, password);
+
+		    //crea el objeto de carpeta y lo abre
+		    Folder emailFolder = store.getFolder("INBOX");
+		    emailFolder.open(Folder.READ_ONLY);
+
+		    // recuperar los mensajes de la carpeta en una matriz e imprimirlos
+		    Message[] messages = emailFolder.getMessages();
+
+		    for (int i = 0, n = messages.length; i < n; i++) {
+		    	Message message = messages[i];
+		        System.out.println("\nEmail Number " + (i + 1));
+		        System.out.println("Subject: " + message.getSubject());
+		        System.out.println("From: " + message.getFrom()[0]);
+		        System.out.println("Text: " + message.getContent().toString());
+		      }
+
+		    //Cerrar store y objeto carpeta
+		    emailFolder.close(false);
+		    store.close();
+
+		    } catch (NoSuchProviderException e) {
+		    	e.printStackTrace();
+		    } catch (MessagingException e) {
+		        e.printStackTrace();
+		    } catch (Exception e) {
+		       e.printStackTrace();
+		    }
 	}
 
 }
