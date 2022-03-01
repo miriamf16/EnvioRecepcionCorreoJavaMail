@@ -9,9 +9,11 @@ public class Main {
 	static String corrDes = "";
 	static String asunto = "";
 	static String remitente = "";
+    static String host = "pop.gmail.com";// change accordingly
+    static String protocolo = "pop3s";
+    static Scanner teclado = new Scanner(System.in);
 
 	public static String getInformation(String mensaje) {
-		Scanner teclado = new Scanner(System.in);
 		String cadena;
 		
 		System.out.print(mensaje + ": ");
@@ -33,18 +35,32 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//correo = "a1253534@uabc.edu.mx";
-		//password = "taylorswift1848* (te la creiste)";
-		//remitente = "yo";
+		int opcion = 0;
 		
 		// INICIO DE SESION
 		loginAcc();
-		Correo.createSession(correo, password);
+		Correo.createSession(correo, password); // correo: correoprueba.daw@gmail.com contra: prueba 22
 		
-		// CREACION DE MENSAJE
-		getData();
-		Correo.createMail(corrDes, asunto, remitente);
-
+		while(opcion != 3)
+		{
+			System.out.println("\n\n --- MENU ---");
+			System.out.println("1) Enviar correo ");
+			System.out.println("2) Revisar correos ");
+			System.out.println("3) Salir ");
+			System.out.print("Seleccione una opcion: ");
+			opcion = teclado.nextInt();
+			
+			if (opcion == 1) {
+				// CREACION DE MENSAJE
+				getData();
+				Correo.createMail(corrDes, asunto, remitente);
+			}
+			
+			if (opcion == 2) {
+				// RECIBIR CORREOS
+				Correo.receiveEmail(host, protocolo, correo, password); 
+			}
+		}
 	}
 
 }
